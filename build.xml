@@ -10,6 +10,13 @@
 <project name="GPS" default="default" basedir=".">
     <description>Builds, tests, and runs the project GPS.</description>
     <import file="nbproject/build-impl.xml"/>
+
+		<property name="install.dir" location="../server/addons"/>
+
+
+		<target name="install" depends="compile">
+			<copy file="${dist.jar}" todir="${install.dir}"/>
+		</target>
     <!--
 
     There exist several targets which are by default empty and which can be 

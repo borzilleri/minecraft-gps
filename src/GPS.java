@@ -8,7 +8,6 @@
  * @author jonathan
  */
 public class GPS extends Mod {
-
 	/**
 	 *
 	 * NOTE: The player's coordinate map like this:
@@ -21,21 +20,53 @@ public class GPS extends Mod {
 	 * @param isAdmin
 	 * @return boolean
 	 */
-	@Override
-	public boolean onPlayerCommand(Player player, String[] command, boolean isAdmin) {
-		String commandString = command[0].substring(1).toLowerCase();
-		if( commandString.equalsIgnoreCase("loc") ) {
-			Location loc = player.getLocation();
-			Double latitude = loc.getX();
-			Double longitude = loc.getZ();
-			Double altitude = loc.getY();
-			Float orientation = player.getRotation();
+	protected boolean parseCommand(Player player, String[] tokens, boolean isAdmin) {
+		String command = tokens[0].substring(1);
+		
+		if( command.equalsIgnoreCase("help") || command.equalsIgnoreCase("commands") ) {
+			player.sendChat("GPS Commands: !gps");
+			return true;
+		}
+		else if(command.equalsIgnoreCase("gps")) {
+			Player target;
+			if( tokens.length > 1 ) {
+				target = Server.getPlayer(tokens[1]);
+			} else {
+				target = player;
+			}
 
-			player.sendChat(String.format(
-				"Position: %.1f,%.1f; Altitude: %.0f; Orientation: %.1f",
-				latitude, longitude, altitude, orientation)
-			);
+			this.getCoordinates(player, target);
+			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean onPlayerCommand(Player player, String[] command, boolean isAdmin) {
+		return this.parseCommand(player, command, isAdmin);
+	}
+
+	@Override
+	public boolean onPlayerChat(Player player, String command, boolean isAdmin) {
+		String[] tokens = command.split(" ");
+		return this.parseCommand(player, tokens, isAdmin);
+	}
+	
+	protected void getCoordinates(Player player, Player target) {
+		Location loc = target.getLocation();
+		Double latitude = loc.getX();
+		Double longitude = loc.getZ();
+		Double altitude = loc.getY();
+		Float orientation = target.getRotation();
+
+		String playerLabel = "";
+		if( player.getId() != target.getId() ) {
+			playerLabel = String.format("%s: ", target.getName());
+		}
+
+		player.sendChat(String.format(
+			"%sPosition: %.1f,%.1f; Altitude: %.0f; Orientation: %.1f",
+			playerLabel, latitude, longitude, altitude, orientation)
+		);
 	}
 }

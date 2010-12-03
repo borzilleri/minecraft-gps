@@ -25,7 +25,7 @@ public class GPS extends Mod {
 		
 		if( command.equalsIgnoreCase("help") || command.equalsIgnoreCase("commands") ) {
 			player.sendChat("GPS Commands: !gps");
-			return true;
+			return tokens[0].substring(0,1).equalsIgnoreCase("!");
 		}
 		else if(command.equalsIgnoreCase("gps")) {
 			Player target;

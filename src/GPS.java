@@ -20,7 +20,7 @@ public class GPS extends Mod {
 	 * @param isAdmin
 	 * @return boolean
 	 */
-	protected boolean parseCommand(Player player, String[] tokens, boolean isAdmin) {
+	protected boolean parseCommand(Player player, String[] tokens) {
 		String command = tokens[0].substring(1);
 		
 		if( command.equalsIgnoreCase("help") || command.equalsIgnoreCase("commands") ) {
@@ -42,14 +42,14 @@ public class GPS extends Mod {
 	}
 
 	@Override
-	public boolean onPlayerCommand(Player player, String[] command, boolean isAdmin) {
-		return this.parseCommand(player, command, isAdmin);
+	public boolean onPlayerCommand(Player player, String[] command) {
+		return this.parseCommand(player, command);
 	}
 
 	@Override
-	public boolean onPlayerChat(Player player, String command, boolean isAdmin) {
+	public boolean onPlayerChat(Player player, String command) {
 		String[] tokens = command.split(" ");
-		return this.parseCommand(player, tokens, isAdmin);
+		return this.parseCommand(player, tokens);
 	}
 
 	protected String generateOrientation(Float degrees) {

@@ -121,7 +121,7 @@ public class GPS extends Mod {
 		Double altitude = loc.getY();
 
 		String playerLabel = "";
-		if( player.getId() != target.getId() ) {
+		if( player.getUniqueId() != target.getUniqueId() ) {
 			playerLabel = String.format("\u00A77%s:\u00A7f ", target.getName());
 		}
 

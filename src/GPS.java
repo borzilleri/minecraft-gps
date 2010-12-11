@@ -23,11 +23,7 @@ public class GPS extends Mod {
 	protected boolean parseCommand(Player player, String[] tokens) {
 		String command = tokens[0].substring(1);
 		
-		if( command.equalsIgnoreCase("help") || command.equalsIgnoreCase("commands") ) {
-			player.sendChat("GPS Commands: !gps");
-			return tokens[0].substring(0,1).equalsIgnoreCase("!");
-		}
-		else if(command.equalsIgnoreCase("gps")) {
+		if(command.equalsIgnoreCase("gps")) {
 			Player target;
 			if( tokens.length > 1 ) {
 				target = Server.getPlayer(tokens[1]);
@@ -39,6 +35,11 @@ public class GPS extends Mod {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "!gps";
 	}
 
 	@Override

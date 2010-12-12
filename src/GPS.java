@@ -87,7 +87,7 @@ public class GPS extends Mod {
 		if( textDirection.length() < 2 ) directionPadding += '_';
 		if( textDirection.length() < 3 ) directionPadding += '_';
 		
-		return String.format("\u00A77(%s\u00A7d%s\u00A77) %s\u00A7d%.1f\u00A7f",
+		return String.format("%s(%s\u00A7d%s\u00A77) %s\u00A7d%.1f\u00A7f",
 			directionPadding, textDirection,
 			this.getDegreesPadding((double)degrees), degrees
 		);
@@ -106,8 +106,9 @@ public class GPS extends Mod {
 		);
 	}
 	protected String generateAltitude(Double altitude) {
-		return String.format("\u00A77%s\u00A79%03.0f\u00A77m\u00A7f",
-			this.getDegreesPadding(altitude), altitude);
+		return Color.LightGray + this.getDegreesPadding(altitude) +
+						Color.DarkPurple + String.format("%.0f", altitude) +
+						Color.LightGray + "m" + Color.White;
 	}
 
 	protected String getDegreesPadding(Double degrees) {

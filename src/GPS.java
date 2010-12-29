@@ -87,7 +87,7 @@ public class GPS extends Mod {
 		if( textDirection.length() < 2 ) directionPadding += '_';
 		if( textDirection.length() < 3 ) directionPadding += '_';
 		
-		return String.format("%s(%s\u00A7d%s\u00A77) %s\u00A7d%.1f\u00A7f",
+		return String.format("(%s\u00A7d%s\u00A77) %s\u00A7d%.1f\u00A7f",
 			directionPadding, textDirection,
 			this.getDegreesPadding((double)degrees), degrees
 		);

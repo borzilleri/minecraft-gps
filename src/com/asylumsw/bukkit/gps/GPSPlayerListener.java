@@ -1,17 +1,17 @@
 package com.asylumsw.bukkit.gps;
 
 import org.bukkit.event.player.PlayerListener;
-import org.bukkit.Player;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 
 /**
  *
  * @author jonathan
  */
 public class GPSPlayerListener extends PlayerListener {
-
 	private final GPS plugin;
 
 	public GPSPlayerListener(GPS instance) {
@@ -34,10 +34,10 @@ public class GPSPlayerListener extends PlayerListener {
 
 		message = String.format(
 						"%sLoc:[ %s%s, %s%s ] Facing:[ %s%s ] Alt:[ %s%s ]",
-						ChatColor.GRAY, this.generateLatitude(loc.getX()), ChatColor.GRAY,
-						this.generateLongitude(loc.getZ()), ChatColor.GRAY,
+						ChatColor.GRAY, this.generateLatitude(loc.getBlockX()), ChatColor.GRAY,
+						this.generateLongitude(loc.getBlockZ()), ChatColor.GRAY,
 						this.generateOrientation(loc.getYaw()), ChatColor.GRAY,
-						this.generateAltitude(loc.getY()), ChatColor.GRAY);
+						this.generateAltitude(loc.getBlockY()), ChatColor.GRAY);
 
 		return message;
 	}
@@ -114,22 +114,22 @@ public class GPSPlayerListener extends PlayerListener {
 						+ ChatColor.LIGHT_PURPLE + String.format("%.1f", degrees);
 	}
 
-	private String generateAltitude(Double altitude) {
-		return ChatColor.GRAY + this.getDegreesPadding(altitude)
+	private String generateAltitude(int altitude) {
+		return ChatColor.GRAY + this.getDegreesPadding((double)altitude)
 						+ ChatColor.DARK_PURPLE + String.format("%.0f", altitude)
 						+ ChatColor.GRAY + "m";
 
 	}
 
-	private String generateLatitude(Double degrees) {
-		return ChatColor.GRAY + this.getDegreesPadding(Math.abs(degrees))
-						+ ChatColor.GREEN + String.format("%.1f", Math.abs(degrees))
+	private String generateLatitude(int degrees) {
+		return ChatColor.GRAY + this.getDegreesPadding((double)Math.abs(degrees))
+						+ ChatColor.GREEN + Math.abs(degrees)
 						+ (degrees < 0 ? "N" : degrees > 0 ? "S" : "");
 	}
 
-	private String generateLongitude(Double degrees) {
-		return ChatColor.GRAY + this.getDegreesPadding(Math.abs(degrees))
-						+ ChatColor.GREEN + String.format("%.1f", Math.abs(degrees))
+	private String generateLongitude(int degrees) {
+		return ChatColor.GRAY + this.getDegreesPadding((double)Math.abs(degrees))
+						+ ChatColor.GREEN + Math.abs(degrees)
 						+ (degrees < 0 ? "E" : degrees > 0 ? "W" : "");
 	}
 }

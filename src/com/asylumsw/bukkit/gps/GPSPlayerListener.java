@@ -116,7 +116,7 @@ public class GPSPlayerListener extends PlayerListener {
 
 	private String generateAltitude(int altitude) {
 		return ChatColor.GRAY + this.getDegreesPadding((double)altitude)
-						+ ChatColor.DARK_PURPLE + String.format("%.0f", altitude)
+						+ ChatColor.BLUE + altitude
 						+ ChatColor.GRAY + "m";
 
 	}

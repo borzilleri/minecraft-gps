@@ -37,4 +37,6 @@ public class GPS extends JavaPlugin {
 		// EXAMPLE: Custom code, here we just output some info so we can check all is well
 		System.out.println("GPS Disabled.");
 	}
+
+	public static void main(String[] args) {}
 }

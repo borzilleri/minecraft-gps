@@ -1,3 +1,6 @@
 name: GPS
 main: com.asylumsw.bukkit.gps.GPS
 version: 2.0
+commands:
+  gps:
+    description: Provides coordinate, facing, and altitude readout.

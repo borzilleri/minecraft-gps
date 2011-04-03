@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
  * @author jonathan
  */
 public class GPS extends JavaPlugin {
+
 	@Override
 	public void onEnable() {
 		PluginDescriptionFile pdfFile = this.getDescription();
@@ -26,16 +27,19 @@ public class GPS extends JavaPlugin {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if( !cmd.getName().equalsIgnoreCase("gps") ) return false;
-		if( !(sender instanceof Player) ) return false;
-		Player player = (Player)sender;
+		if (!cmd.getName().equalsIgnoreCase("gps")) return false;
+		if( !(sender instanceof Player) ) {
+			sender.sendMessage(ChatColor.DARK_GRAY + "[gps] "
+							+ ChatColor.RED + "ERROR: This command is available only to players.");
+				return true;
+		}
+		
+		Player player = (Player) sender;
 		player.sendMessage(this.getCoordinates(player.getLocation()));
 		return true;
 	}
 
-	public static void main(String[] args) {}
-
-		private String getCoordinates(Location loc) {
+	private String getCoordinates(Location loc) {
 		String message = "";
 
 		message = String.format(
@@ -64,7 +68,7 @@ public class GPS extends JavaPlugin {
 		 * if degrees is negative, it means we were rotating anti-clockwise,
 		 * so convert it into the proper positive value.
 		 */
-		if( 0 > degrees ) {
+		if (0 > degrees) {
 			degrees = 360 - Math.abs(degrees) % 360;
 		}
 
@@ -121,20 +125,20 @@ public class GPS extends JavaPlugin {
 	}
 
 	private String generateAltitude(int altitude) {
-		return ChatColor.GRAY + this.getDegreesPadding((double)altitude)
+		return ChatColor.GRAY + this.getDegreesPadding((double) altitude)
 						+ ChatColor.BLUE + altitude
 						+ ChatColor.GRAY + "m";
 
 	}
 
 	private String generateLatitude(int degrees) {
-		return ChatColor.GRAY + this.getDegreesPadding((double)Math.abs(degrees))
+		return ChatColor.GRAY + this.getDegreesPadding((double) Math.abs(degrees))
 						+ ChatColor.GREEN + Math.abs(degrees)
 						+ (degrees < 0 ? "N" : degrees > 0 ? "S" : "");
 	}
 
 	private String generateLongitude(int degrees) {
-		return ChatColor.GRAY + this.getDegreesPadding((double)Math.abs(degrees))
+		return ChatColor.GRAY + this.getDegreesPadding((double) Math.abs(degrees))
 						+ ChatColor.GREEN + Math.abs(degrees)
 						+ (degrees < 0 ? "E" : degrees > 0 ? "W" : "");
 	}
